@@ -1,5 +1,5 @@
 # Building the binary of the App
-FROM golang AS build
+FROM golang:1.14.4-alpine3.12 AS build
 
 # `boilerplate` should be replaced with your project name
 WORKDIR /visor/src
