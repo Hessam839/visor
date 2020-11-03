@@ -14,7 +14,7 @@ type Visor struct {
 }
 
 func NewVisor() *Visor {
-	client, err := client.NewClientWithOpts(client.WithHost("tcp://127.0.0.1:2375"), client.WithAPIVersionNegotiation())
+	client, err := client.NewClientWithOpts(client.WithHost("tcp://172.17.0.1:2375"), client.WithAPIVersionNegotiation())
 	if err != nil {
 		log.Fatal(err)
 	}
