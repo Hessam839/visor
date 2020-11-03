@@ -27,7 +27,10 @@ func main() {
 
 	app := fiber.New(fiber.Config{Views: engine})
 	app.Get("/imagelist", func(c *fiber.Ctx) error {
-		imgs, _ := v.GetAllImages()
+		imgs, imgsErr := v.GetAllImages()
+		if imgsErr != nil {
+			log.Fatal(imgsErr)
+		}
 		var images []Items
 		for _, img := range *imgs {
 			images = append(images, Items{
@@ -41,7 +44,10 @@ func main() {
 	})
 
 	app.Get("/containerlist", func(c *fiber.Ctx) error {
-		conts, _ := v.ListAllContainer()
+		conts, contsErr := v.ListAllContainer()
+		if contsErr != nil {
+			log.Fatal(contsErr)
+		}
 		var items []Items
 		for _, cont := range *conts {
 			items = append(items, Items{
