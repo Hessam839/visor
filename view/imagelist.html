@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Visor(Image Lists)</title>
+    <style>
+        table,td,td, th{
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div style="align-content: center">
+        <table title="Docker Image List" style="width: 100%">
+            <tr>
+                <th>Image Name</th>
+                <th>Time</th>
+                <th>Size</th>
+            </tr>
+            {{range .Items}}
+            <tr>
+                <td>{{.Name}}</td>
+                <td>{{.Created}}</td>
+                <td>{{.Size}}</td>
+            </tr>
+            {{end}}
+        </table>
+    </div>
+</body>
+</html>

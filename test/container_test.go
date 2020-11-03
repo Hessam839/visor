@@ -2,6 +2,7 @@ package test
 
 import (
 	"github.com/davecgh/go-spew/spew"
+	"github.com/docker/docker/api/types"
 	"testing"
 	"visor/dock"
 )
@@ -13,7 +14,8 @@ func Test_ListAllContainer(t *testing.T) {
 
 func Test_FindContainer(t *testing.T) {
 	v := dock.NewVisor()
-	spew.Dump(v.FindContainer())
+	filter := types.ContainerListOptions{All: false}
+	spew.Dump(v.FindContainer(filter))
 }
 
 func Test_StartContainer(t *testing.T) {

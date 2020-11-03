@@ -2,19 +2,19 @@ package dock
 
 import (
 	"context"
-	docker "docker.io/go-docker"
+	"github.com/docker/docker/client"
 	"log"
 	"time"
 )
 
 type Visor struct {
-	Client  *docker.Client
+	Client  *client.Client
 	TimeOut time.Duration
 	Ctx     context.Context
 }
 
 func NewVisor() *Visor {
-	client, err := docker.NewEnvClient()
+	client, err := client.NewClientWithOpts(client.WithHost("tcp://127.0.0.1:2375"), client.WithAPIVersionNegotiation())
 	if err != nil {
 		log.Fatal(err)
 	}

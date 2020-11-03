@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Visor(Containers Lists)</title>
+    <style>
+        table,td,td, th{
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+<div style="align-content: center">
+    <table title="Docker Container List" style="width: 100%">
+        <tr>
+            <th>Container Name</th>
+            <th>Created at</th>
+            <th>Size</th>
+            <th>Status</th>
+        </tr>
+        {{range .Items}}
+            <tr>
+                <td>{{.Name}}</td>
+                <td>{{.Created}}</td>
+                <td>{{.Size}}</td>
+                <td>{{.Status}}</td>
+            </tr>
+        {{end}}
+    </table>
+</div>
+</body>
+</html>
