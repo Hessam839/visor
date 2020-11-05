@@ -11,7 +11,7 @@ require (
 	github.com/docker/docker v20.10.0-beta1.0.20201102174425-7bb1944edba6+incompatible
 	github.com/docker/go-connections v0.4.0 // indirect
 	github.com/docker/go-units v0.4.0 // indirect
-	github.com/dustin/go-humanize v1.0.0 // indirect
+	github.com/dustin/go-humanize v1.0.0
 	github.com/gofiber/fiber/v2 v2.1.3
 	github.com/gofiber/template v1.6.4
 	github.com/gogo/protobuf v1.3.1 // indirect

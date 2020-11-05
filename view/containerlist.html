@@ -20,7 +20,7 @@
         </tr>
         {{range .Items}}
             <tr>
-                <td>{{.Name}}</td>
+                <td><a href="/stat/{{.ID}}">{{.Name}}</a></td>
                 <td>{{.Created}}</td>
                 <td>{{.Size}}</td>
                 <td>{{.Status}}</td>
