@@ -8,9 +8,9 @@ import (
 )
 
 func (v *Visor) ContainerGetStat(ContID string) (*structs.ContainerStat, error) {
-	stat, staterr := v.Client.ContainerStats(v.Ctx, ContID, false)
-	if staterr != nil {
-		return nil, staterr
+	stat, statErr := v.Client.ContainerStats(v.Ctx, ContID, false)
+	if statErr != nil {
+		return nil, statErr
 	}
 
 	buff := new(bytes.Buffer)
@@ -18,8 +18,11 @@ func (v *Visor) ContainerGetStat(ContID string) (*structs.ContainerStat, error) 
 	if buffErr != nil {
 		return nil, buffErr
 	}
+	defer func() {
+		_ = stat.Body.Close()
+	}()
+
 	jstr := buff.String()
-	//var data map[string]interface{}
 	var data structs.ContainerStat
 	jerr := json.Unmarshal([]byte(jstr), &data)
 	if jerr != nil {

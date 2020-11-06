@@ -34,10 +34,12 @@ func (v *Visor) ImagePull(imageName string) (string, error) {
 	imagesReader, imageReaderErr := v.Client.ImagePull(v.Ctx, imageName, types.ImagePullOptions{
 		All:      false,
 		Platform: platform})
-
 	if imageReaderErr != nil {
 		return "", imageReaderErr
 	}
+	defer func() {
+		_ = imagesReader.Close()
+	}()
 	buff := bytes.Buffer{}
 	_, buffErr := buff.ReadFrom(imagesReader)
 	if buffErr != nil {
