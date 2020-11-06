@@ -1,4 +1,4 @@
-package server
+package utils
 
 type Items struct {
 	Name    string
@@ -22,5 +22,5 @@ type Stats struct {
 
 type ViewStat struct {
 	Name string
-	Item Stats
+	Item []Stats
 }

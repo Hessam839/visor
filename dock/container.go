@@ -7,11 +7,12 @@ import (
 	//network2 "docker.io/go-docker/api/types/network"
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/container"
+	"github.com/docker/docker/api/types/filters"
 	"github.com/docker/docker/api/types/network"
 	specs "github.com/opencontainers/image-spec/specs-go/v1"
 )
 
-func (v *Visor) ListAllContainer() (*[]types.Container, error) {
+func (v *Visor) ContainerListAll() (*[]types.Container, error) {
 	containers, err := v.Client.ContainerList(v.Ctx, types.ContainerListOptions{All: true})
 	if err != nil {
 		return nil, err
@@ -19,7 +20,7 @@ func (v *Visor) ListAllContainer() (*[]types.Container, error) {
 	return &containers, nil
 }
 
-func (v *Visor) FindContainer(filter types.ContainerListOptions) (*[]types.Container, error) {
+func (v *Visor) ContainerFind(filter types.ContainerListOptions) (*[]types.Container, error) {
 	containers, err := v.Client.ContainerList(v.Ctx, filter)
 	if err != nil {
 		return nil, err
@@ -27,7 +28,7 @@ func (v *Visor) FindContainer(filter types.ContainerListOptions) (*[]types.Conta
 	return &containers, nil
 }
 
-func (v *Visor) StartContainer(ContID string) error {
+func (v *Visor) ContainerStart(ContID string) error {
 	err := v.Client.ContainerStart(v.Ctx, ContID, types.ContainerStartOptions{})
 	if err != nil {
 		return err
@@ -35,7 +36,7 @@ func (v *Visor) StartContainer(ContID string) error {
 	return nil
 }
 
-func (v *Visor) PauseContainer(ContID string) error {
+func (v *Visor) ContainerPause(ContID string) error {
 	err := v.Client.ContainerPause(v.Ctx, ContID)
 	if err != nil {
 		return err
@@ -43,7 +44,7 @@ func (v *Visor) PauseContainer(ContID string) error {
 	return nil
 }
 
-func (v *Visor) StopContainer(ContID string) error {
+func (v *Visor) ContainerStop(ContID string) error {
 	err := v.Client.ContainerStop(v.Ctx, ContID, &v.TimeOut)
 	if err != nil {
 		return err
@@ -51,7 +52,7 @@ func (v *Visor) StopContainer(ContID string) error {
 	return nil
 }
 
-func (v *Visor) KillContainer(ContID string) error {
+func (v *Visor) ContainerKill(ContID string) error {
 	err := v.Client.ContainerKill(v.Ctx, ContID, "Kill")
 	if err != nil {
 		return err
@@ -59,7 +60,7 @@ func (v *Visor) KillContainer(ContID string) error {
 	return nil
 }
 
-func (v *Visor) CreateContainer(ContName string) (string, error) {
+func (v *Visor) ContainerCreate(ContName string) (string, error) {
 	config := container.Config{}
 	host := container.HostConfig{}
 	network := network.NetworkingConfig{}
@@ -70,4 +71,13 @@ func (v *Visor) CreateContainer(ContName string) (string, error) {
 	}
 
 	return cont.ID, nil
+}
+
+func (v *Visor) ContainerPrune() (uint64, error) {
+	preport, preportErr := v.Client.ContainersPrune(v.Ctx, filters.Args{})
+	if preportErr != nil {
+		return 0, preportErr
+	}
+	return preport.SpaceReclaimed, nil
+
 }

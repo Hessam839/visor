@@ -22,10 +22,14 @@ type ViewData struct {
 func main() {
 	app := server.NewWebServer()
 
-	app.Get("/containerlist", handlers.HandlerContainerList)
-
+	app.Get("/containers/list", handlers.HandlerContainerList)
+	app.Get("/containers/prune", handlers.HandlerContainerPrune)
+	app.Get("/images/list", handlers.HandlerGetAllImages)
+	app.Get("/images/prune", handlers.HandlerImagePrune)
 	app.Get("/stat/:id", handlers.HandlerContainerStats)
-
+	app.Get("/utilies", func(c *fiber.Ctx) error {
+		return c.Render("utility", nil)
+	})
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.Render("index", nil)
 	})

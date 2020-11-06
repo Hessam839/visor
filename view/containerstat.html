@@ -44,7 +44,6 @@
         }
         html {
             text-size-adjust: 100%;
-            -webkit-font-feature-settings: ;
         }
         .nav-container {
             height: 55px;
@@ -93,7 +92,7 @@
     <div>
         <table class="datatable" title="Container Stats" >
             <caption class=" title">
-                dsfsdf sd
+                Container Stat
             </caption>
             <tr>
                 <th>Name</th>
@@ -102,7 +101,7 @@
                 <th>RAM</th>
                 <th>Network</th>
             </tr>
-            {{range .stat}}
+            {{range .Item}}
                 <tr>
                     <td class="data">{{.Name}}</td>
                     <td class="data">{{.ID}}</td>

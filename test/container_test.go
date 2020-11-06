@@ -9,21 +9,21 @@ import (
 
 func Test_ListAllContainer(t *testing.T) {
 	v := dock.NewVisor()
-	spew.Dump(v.ListAllContainer())
+	spew.Dump(v.ContainerListAll())
 }
 
 func Test_FindContainer(t *testing.T) {
 	v := dock.NewVisor()
 	filter := types.ContainerListOptions{All: false}
-	spew.Dump(v.FindContainer(filter))
+	spew.Dump(v.ContainerFind(filter))
 }
 
 func Test_StartContainer(t *testing.T) {
 	v := dock.NewVisor()
-	spew.Dump(v.StartContainer(""))
+	spew.Dump(v.ContainerStart(""))
 }
 
 func Test_PauseContainer(t *testing.T) {
 	v := dock.NewVisor()
-	spew.Dump(v.PauseContainer(""))
+	spew.Dump(v.ContainerPause(""))
 }

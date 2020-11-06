@@ -8,5 +8,5 @@ import (
 
 func Test_GetAllImages(t *testing.T) {
 	v := dock.NewVisor()
-	spew.Dump(v.GetAllImages())
+	spew.Dump(v.ImageGetAll())
 }
