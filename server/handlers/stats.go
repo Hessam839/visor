@@ -12,7 +12,7 @@ import (
 func HandlerContainerStats(c *fiber.Ctx) error {
 	start := time.Now()
 	id := c.Params("id")
-	Stat, staterr := Visor.GetContainerStat(id)
+	Stat, staterr := Visor.ContainerGetStat(id)
 	if staterr != nil {
 		log.Println(staterr)
 		return c.SendString(staterr.Error())

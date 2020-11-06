@@ -9,8 +9,8 @@ import (
 
 func Test_GetContainerStat(t *testing.T) {
 	v := dock.NewVisor()
-	s, err := v.GetContainerStat("04dca0882c")
-	//s, err := v.GetContainerStat("04dca0882c9e47bdf2c30d1bef55321e5ad2b576c73f369c01a46b5f954f48ce")
+	s, err := v.ContainerGetStat("04dca0882c")
+	//s, err := v.ContainerGetStat("04dca0882c9e47bdf2c30d1bef55321e5ad2b576c73f369c01a46b5f954f48ce")
 	if err != nil {
 		log.Fatal(err)
 	}
