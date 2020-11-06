@@ -2,25 +2,35 @@ package dock
 
 import (
 	"context"
-	"github.com/docker/docker/client"
 	"log"
 	"time"
+
+	"github.com/docker/docker/api/types"
+	"github.com/docker/docker/client"
 )
 
 type Visor struct {
 	Client  *client.Client
-	TimeOut time.Duration
 	Ctx     context.Context
+	SysInfo *types.Info
+	TimeOut time.Duration
 }
 
 func NewVisor() *Visor {
-	client, err := client.NewClientWithOpts(client.WithHost("tcp://172.17.0.1:2375"), client.WithAPIVersionNegotiation())
-	if err != nil {
-		log.Fatal(err)
+	dockerClient, dockerClientErr := client.NewClientWithOpts(client.WithHost("tcp://172.17.0.1:2375"), client.WithAPIVersionNegotiation())
+	if dockerClientErr != nil {
+		log.Fatal(dockerClientErr)
 	}
-	return &Visor{
-		Client:  client,
-		TimeOut: 30 * time.Second,
+	v := &Visor{
+		Client:  dockerClient,
 		Ctx:     context.Background(),
+		TimeOut: 30 * time.Second,
 	}
+
+	sysInfo, sysInfoErr := v.Client.Info(v.Ctx)
+	if sysInfoErr != nil {
+		log.Fatal(sysInfoErr)
+	}
+	v.SysInfo = &sysInfo
+	return v
 }

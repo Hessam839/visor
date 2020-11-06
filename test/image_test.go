@@ -10,3 +10,8 @@ func Test_GetAllImages(t *testing.T) {
 	v := dock.NewVisor()
 	spew.Dump(v.ImageGetAll())
 }
+
+func Test_ImagePull(t *testing.T) {
+	v := dock.NewVisor()
+	spew.Dump(v.ImagePull("redis"))
+}
