@@ -9,7 +9,7 @@ import (
 )
 
 func NewWebServer() *fiber.App {
-	engine := html.New("./view", ".html")
+	engine := html.New("./server/assets/html", ".html")
 
 	app := fiber.New(fiber.Config{Views: engine})
 	app.Get("/imagelist", handlers.HandlerGetAllImages)

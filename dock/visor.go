@@ -10,10 +10,11 @@ import (
 )
 
 type Visor struct {
-	Client  *client.Client
-	Ctx     context.Context
-	SysInfo *types.Info
-	TimeOut time.Duration
+	Client   *client.Client
+	Ctx      context.Context
+	SysInfo  *types.Info
+	TimeOut  time.Duration
+	Platform string
 }
 
 func NewVisor() *Visor {
@@ -32,5 +33,12 @@ func NewVisor() *Visor {
 		log.Fatal(sysInfoErr)
 	}
 	v.SysInfo = &sysInfo
+
+	if v.SysInfo.Architecture == "x86_64" {
+		v.Platform = v.SysInfo.OSType + "/amd64"
+	} else if v.SysInfo.Architecture == "x86" {
+		v.Platform = v.SysInfo.OSType + "/386"
+	}
+
 	return v
 }

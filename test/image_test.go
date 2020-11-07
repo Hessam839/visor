@@ -13,10 +13,20 @@ func Test_GetAllImages(t *testing.T) {
 
 func Test_ImagePull(t *testing.T) {
 	v := dock.NewVisor()
-	spew.Dump(v.ImagePull("hello-world"))
+	spew.Dump(v.ImagePull("redis"))
 }
 
 func Test_ImageSearch(t *testing.T) {
 	v := dock.NewVisor()
 	spew.Dump(v.ImageSearch("hello world"))
+}
+
+func Test_ImageRemove(t *testing.T) {
+	v := dock.NewVisor()
+	spew.Dump(v.ImageRemove("redis", true))
+}
+
+func Test_ImageInspect(t *testing.T) {
+	v := dock.NewVisor()
+	spew.Dump(v.ImageInspect("hello-world"))
 }
