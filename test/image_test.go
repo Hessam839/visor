@@ -23,7 +23,7 @@ func Test_ImageSearch(t *testing.T) {
 
 func Test_ImageRemove(t *testing.T) {
 	v := dock.NewVisor()
-	spew.Dump(v.ImageRemove("redis", true))
+	spew.Dump(v.ImageRemove("f0b02e9d09", true))
 }
 
 func Test_ImageInspect(t *testing.T) {

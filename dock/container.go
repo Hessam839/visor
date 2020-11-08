@@ -60,6 +60,7 @@ func (v *Visor) ContainerKill(ContID string) error {
 	return nil
 }
 
+//TODO mustbe deployed
 func (v *Visor) ContainerCreate(ContName string) (string, error) {
 	config := container.Config{}
 	host := container.HostConfig{}

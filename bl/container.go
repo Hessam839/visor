@@ -9,7 +9,7 @@ import (
 	. "visor/utils"
 )
 
-func ContainerStatProcess(contID string) (*ViewStat, error) {
+func ContainerStatProcess(contID string) (*Stats, error) {
 	Stat, staterr := Visor.ContainerGetStat(contID)
 	if staterr != nil {
 		log.Println(staterr)
@@ -22,19 +22,16 @@ func ContainerStatProcess(contID string) (*ViewStat, error) {
 		systemCPUtDelta := Stat.CPUStats.SystemCPUUsage - Stat.PrecpuStats.SystemCPUUsage
 		numberCPUs := Stat.CPUStats.OnlineCpus
 		cpuUsage := (float32(cpuDelta) / float32(systemCPUtDelta)) * float32(numberCPUs) * 100.0
-		ViewStat := ViewStat{
-			Name: "test",
-			Item: []Stats{Stats{
-				ID:   Stat.ID,
-				Name: Stat.Name,
-				CPU:  fmt.Sprintf("%f%", cpuUsage),
-				RAM:  humanize.Bytes(usedMemory),
-				Network: fmt.Sprintf("RX: %s | TX: %s",
-					humanize.Bytes(uint64(Stat.Networks.Eth0.RxBytes)),
-					humanize.Bytes(uint64(Stat.Networks.Eth0.TxBytes))),
-			}},
+		Item := Stats{
+			ID:   Stat.ID,
+			Name: Stat.Name,
+			CPU:  fmt.Sprintf("%f%", cpuUsage),
+			RAM:  humanize.Bytes(usedMemory),
+			Network: fmt.Sprintf("RX: %s | TX: %s",
+				humanize.Bytes(uint64(Stat.Networks.Eth0.RxBytes)),
+				humanize.Bytes(uint64(Stat.Networks.Eth0.TxBytes))),
 		}
-		return &ViewStat, nil
+		return &Item, nil
 	}
 	return nil, errors.New("unknown error")
 }

@@ -21,13 +21,23 @@ type ViewData struct {
 
 func main() {
 	app := server.NewWebServer()
+	app.Static("/static", "./server/assets", fiber.Static{
+		Compress:  true,
+		Browse:    false,
+		ByteRange: true,
+		MaxAge:    1000000,
+	})
 
-	app.Get("/containers/list", handlers.HandlerContainerList)
-	app.Get("/containers/prune", handlers.HandlerContainerPrune)
-	app.Get("/containers/stat/:id", handlers.HandlerContainerStats)
-	app.Get("/images/list", handlers.HandlerGetAllImages)
-	app.Get("/images/prune", handlers.HandlerImagePrune)
-	app.Get("images/remove/:id")
+	containers := app.Group("/containers")
+	containers.Get("/list", handlers.HandlerContainerList)
+	containers.Get("/prune", handlers.HandlerContainerPrune)
+	containers.Get("/stat/:id", handlers.HandlerContainerStats)
+
+	images := app.Group("/images")
+	images.Get("/list", handlers.HandlerGetAllImages)
+	images.Get("/prune", handlers.HandlerImagePrune)
+	images.Get("/remove/:id", handlers.HandlerImageRemove)
+	images.Post("/search", handlers.HandlerImageSearch)
 
 	app.Get("/utilies", func(c *fiber.Ctx) error {
 		return c.Render("utility", nil)

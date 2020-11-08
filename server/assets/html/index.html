@@ -3,12 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Visor Project</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
 </head>
 <body>
     <div style="alignment: center">
         <a href="/images/list">Get Images List</a>
         <a href="/containers/list">Get Container List</a>
         <a href="/utilies">Utilities</a>
+    </div>
+    <div>
+        <form name="search" action="/images/search" method="post" accesskey="search">
+            <label for="imagename">Docker Image Name</label>
+            <input id="imagename" type="text" name="iname" about="search docker image">
+            <input id="search" type="submit" value="Search Image">
+        </form>
     </div>
 </body>
 </html>

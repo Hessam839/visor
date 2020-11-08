@@ -24,3 +24,15 @@ type ViewStat struct {
 	Name string
 	Item []Stats
 }
+
+type Search struct {
+	Name        string
+	Description string
+	IsOfficial  bool
+	Stars       int
+}
+
+type ViewSearch struct {
+	Name  string
+	Items []Search
+}
