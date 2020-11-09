@@ -7,11 +7,19 @@
 </head>
 <body>
     <div>
-        <table>
+        <table class="table">
             <tr>
                 <th>Image Name</th>
-                <th>I</th>
+                <th>Description</th>
+                <th>Stars</th>
             </tr>
+            {{range .Items}}
+                <tr>
+                    <td>{{.Name}}</td>
+                    <td>{{.Description}}</td>
+                    <td>{{.Stars}}</td>
+                </tr>
+            {{end}}
         </table>
     </div>
 </body>

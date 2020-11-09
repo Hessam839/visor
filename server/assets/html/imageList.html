@@ -12,7 +12,7 @@
 </head>
 <body>
     <div style="align-content: center">
-        <table title="Docker Image List" style="width: 100%">
+        <table title="Docker Image List" style="width: 100%" class="table">
             <tr>
                 <th>Image Name</th>
                 <th>Time</th>
@@ -20,7 +20,7 @@
             </tr>
             {{range .Items}}
             <tr>
-                <td><a href="/images/remove/{{.ID}}">{{.Name}}</a></td>
+                <td class="align-items-center"><a href="/images/remove/{{.ID}}">{{.Name}}</a></td>
                 <td>{{.Created}}</td>
                 <td>{{.Size}}</td>
             </tr>
