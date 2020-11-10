@@ -47,8 +47,8 @@ func (v *Visor) ImagePull(imageName string) (string, error) {
 	return jstr, nil
 }
 
-func (v *Visor) ImageSearch(imageName string) (*[]registry.SearchResult, error) {
-	searchResult, searchResultErr := v.Client.ImageSearch(v.Ctx, imageName, types.ImageSearchOptions{Limit: 10})
+func (v *Visor) ImageSearch(imageName string, limit int) (*[]registry.SearchResult, error) {
+	searchResult, searchResultErr := v.Client.ImageSearch(v.Ctx, imageName, types.ImageSearchOptions{Limit: limit})
 	if searchResultErr != nil {
 		return nil, searchResultErr
 	}

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Visor(Image Search)</title>
     <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/all.min.css">
 </head>
 <body>
     <div>
@@ -12,12 +13,14 @@
                 <th>Image Name</th>
                 <th>Description</th>
                 <th>Stars</th>
+                <th>Operation</th>
             </tr>
             {{range .Items}}
                 <tr>
-                    <td>{{.Name}}</td>
+                    <td>{{.Name}}{{if .IsOfficial}} <span class="fas fa-award"></span>{{end}}</td>
                     <td>{{.Description}}</td>
                     <td>{{.Stars}}</td>
+                    <td><a class="btn btn-primary"  role="button" href="/images/pull/{{.Name}}">Pull</a></td>
                 </tr>
             {{end}}
         </table>

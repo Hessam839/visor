@@ -4,103 +4,20 @@
     <meta charset="UTF-8">
     <title>Visor(container stat)</title>
     <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/all.min.css">
 </head>
-<body style="align-items: center;">
-{{/*    <style>*/}}
-{{/*        .data{*/}}
-{{/*            background-color: dodgerblue;*/}}
-{{/*            color: white;*/}}
-{{/*            border-radius: 5px;*/}}
-{{/*            text-align: center;*/}}
-{{/*        }*/}}
-{{/*        .dataelem{*/}}
-{{/*            background-color: orangered;*/}}
-{{/*            color: white;*/}}
-{{/*            border-radius: 5px;*/}}
-{{/*            margin: 8px;*/}}
-{{/*        }*/}}
-{{/*        .datatable{*/}}
-{{/*            width: 90%;*/}}
-{{/*            align-content: center;*/}}
-{{/*            margin: 5px;*/}}
-{{/*            background-color: lightgrey;*/}}
-{{/*            color: black;*/}}
-{{/*            border-radius: 3px;*/}}
-{{/*            box-shadow: gray;*/}}
-{{/*        }*/}}
-{{/*        .title{*/}}
-{{/*            /* width: 90%; */}}
-{{/*            text-align: center;*/}}
-{{/*            background-color: dodgerblue;*/}}
-{{/*            color: white;*/}}
-{{/*            border-radius: 3px;*/}}
-{{/*            font-size: medium;*/}}
-{{/*            font-style: italic;*/}}
-{{/*        }*/}}
-{{/*        * {*/}}
-{{/*            box-sizing: border-box;*/}}
-{{/*        }*/}}
-{{/*        div {*/}}
-{{/*            display: block;*/}}
-{{/*        }*/}}
-{{/*        html {*/}}
-{{/*            text-size-adjust: 100%;*/}}
-{{/*        }*/}}
-{{/*        .nav-container {*/}}
-{{/*            height: 55px;*/}}
-{{/*        }*/}}
-{{/*        #tabs {*/}}
-{{/*            float: left;*/}}
-{{/*            padding-left: 8px;*/}}
-{{/*            margin: 0px;*/}}
-{{/*        }*/}}
-{{/*        .nav-secondary {*/}}
-{{/*            background-color: rgb(38, 151, 237);*/}}
-{{/*            box-shadow: rgba(0, 0, 0, 0.24) 0px 1px 13px;*/}}
-{{/*            height: 55px;*/}}
-{{/*        }*/}}
-{{/*        .navbar-fixed-top {*/}}
-{{/*            top: 0px;*/}}
-{{/*            border-width: 0px 0px 1px;*/}}
-{{/*        }*/}}
-{{/*        .container-fluid {*/}}
-{{/*            padding-right: 15px;*/}}
-{{/*            padding-left: 15px;*/}}
-{{/*            margin-right: auto;*/}}
-{{/*            margin-left: auto;*/}}
-{{/*        }*/}}
-{{/*    </style>*/}}
-    <header>
-        <nav class="nav-secondry navbar-fixed-top">
-            <div class=" container-fluid">
-                <div class=" nav-container">
-                    <div id=" tabs">
-                        <a>Item1</a>
-                    </div>
-                </div>
-                <div class=" nav-container">
-                    <a>Item2</a>
-                </div>
-                <div class=" nav-container">
-                    <a>Item1</a>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <!-- <div>
-        <div class="title">Container Stat</div>
-    </div> -->
+<body>
+
+    {{template "header" .}}
     <div>
-        <table class="datatable" title="Container Stats" >
-            <caption class=" title">
-                Container Stat
-            </caption>
+        <table class="table" title="Container Stats" >
             <tr>
                 <th>Name</th>
                 <th>ID</th>
                 <th>CPU</th>
                 <th>RAM</th>
                 <th>Network</th>
+                <th>Operation</th>
             </tr>
             {{range .Item}}
                 <tr>
@@ -109,6 +26,23 @@
                     <td class="data">{{.CPU}}</td>
                     <td class="data">{{.RAM}}</td>
                     <td class="data">{{.Network}}</td>
+                    <td>
+                        <a class="btn btn-primary" role="button" href="">
+                            <span class="fas fa-info-circle"></span>
+                        </a>
+                        <a class="btn btn-primary" role="button" href="">
+                            <span class="fas fa-play"></span>
+                        </a>
+                        <a class="btn btn-warning" role="button" href="">
+                            <span class="fas fa-pause"></span>
+                        </a>
+                        <a class="btn btn-dark" role="button" href="">
+                            <span class="fas fa-stop"></span>
+                        </a>
+                        <a class="btn btn-danger" role="button" href="">
+                            <span class="fas fa-skull"></span>
+                        </a>
+                    </td>
                 </tr>
             {{end}}
         </table>

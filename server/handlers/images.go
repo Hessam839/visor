@@ -42,8 +42,8 @@ func HandlerImageRemove(c *fiber.Ctx) error {
 }
 
 func HandlerImageSearch(c *fiber.Ctx) error {
-	iname := c.Params("iname")
-	results, resultsErr := bl.ImageSearch(iname)
+	iname := c.FormValue("iname", "hello-world")
+	results, resultsErr := bl.ImageSearch(iname, 15)
 	if resultsErr != nil {
 		c.Status(500)
 		return c.SendString(resultsErr.Error())
@@ -58,4 +58,15 @@ func HandlerImageSearch(c *fiber.Ctx) error {
 		})
 	}
 	return c.Render("searchList", utils.ViewSearch{Name: "search", Items: search})
+}
+
+func HandlerImagePull(c *fiber.Ctx) error {
+	iname := c.Params("iname")
+	err := bl.ImagePull(iname)
+	if err != nil {
+		_ = c.SendStatus(fiber.StatusInternalServerError)
+		return c.SendString(err.Error())
+	}
+	_ = c.SendStatus(fiber.StatusOK)
+	return c.SendString("pull is successful")
 }

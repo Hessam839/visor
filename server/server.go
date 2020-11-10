@@ -14,6 +14,7 @@ func NewWebServer() *fiber.App {
 	app := fiber.New(fiber.Config{Views: engine})
 	app.Get("/imagelist", handlers.HandlerGetAllImages)
 
+	//app.Use(handlers.Timer())
 	app.Use(logger.New())
 	app.Use(logger.New(logger.Config{
 		Format:     "${pid} ${status} - ${method} ${path}\n",

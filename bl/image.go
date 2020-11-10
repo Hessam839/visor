@@ -33,10 +33,18 @@ func ImageRemove(imgID string, forced bool) error {
 	return nil
 }
 
-func ImageSearch(imgName string) (*[]registry.SearchResult, error) {
-	result, resultErr := Visor.ImageSearch(imgName)
+func ImageSearch(imgName string, limit int) (*[]registry.SearchResult, error) {
+	result, resultErr := Visor.ImageSearch(imgName, limit)
 	if resultErr != nil {
 		return nil, resultErr
 	}
 	return result, nil
+}
+
+func ImagePull(imgName string) error {
+	_, err := Visor.ImagePull(imgName)
+	if err != nil {
+		return err
+	}
+	return nil
 }

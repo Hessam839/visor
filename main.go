@@ -38,6 +38,7 @@ func main() {
 	images.Get("/prune", handlers.HandlerImagePrune)
 	images.Get("/remove/:id", handlers.HandlerImageRemove)
 	images.Post("/search", handlers.HandlerImageSearch)
+	images.Get("/pull/:iname", handlers.HandlerImagePull)
 
 	app.Get("/utilies", func(c *fiber.Ctx) error {
 		return c.Render("utility", nil)
