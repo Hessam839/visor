@@ -2,17 +2,17 @@ package server
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"os"
+
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/template/html"
-	"os"
-	"visor/server/handlers"
 )
 
 func NewWebServer() *fiber.App {
 	engine := html.New("./server/assets/html", ".html")
-
+	//engine := html.NewFileSystem(rice.MustFindBox("./server/assets/html").HTTPBox(), ".html")
 	app := fiber.New(fiber.Config{Views: engine})
-	app.Get("/imagelist", handlers.HandlerGetAllImages)
+	//app.Get("/imagelist", handlers.HandlerGetAllImages)
 
 	//app.Use(handlers.Timer())
 	app.Use(logger.New())

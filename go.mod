@@ -3,6 +3,7 @@ module visor
 go 1.13
 
 require (
+	github.com/GeertJohan/go.rice v1.0.0
 	github.com/Microsoft/go-winio v0.4.14 // indirect
 	github.com/andybalholm/brotli v1.0.1 // indirect
 	github.com/containerd/containerd v1.4.1 // indirect
