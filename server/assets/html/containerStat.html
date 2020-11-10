@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Visor(container stat)</title>
+    <link rel="preload" href="/static/css/bootstrap.min.css" as="style">
+    <link rel="preload" href="/static/css/all.min.css" as="style">
+    <link rel="preload" href="/static/webfonts/fa-solid-900.woff2" as="font">
+
     <link rel="stylesheet" href="/static/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/css/all.min.css">
 </head>
@@ -17,7 +21,7 @@
                 <th>CPU</th>
                 <th>RAM</th>
                 <th>Network</th>
-                <th>Operation</th>
+
             </tr>
             {{range .Item}}
                 <tr>
@@ -26,23 +30,7 @@
                     <td class="data">{{.CPU}}</td>
                     <td class="data">{{.RAM}}</td>
                     <td class="data">{{.Network}}</td>
-                    <td>
-                        <a class="btn btn-primary" role="button" href="">
-                            <span class="fas fa-info-circle"></span>
-                        </a>
-                        <a class="btn btn-primary" role="button" href="">
-                            <span class="fas fa-play"></span>
-                        </a>
-                        <a class="btn btn-warning" role="button" href="">
-                            <span class="fas fa-pause"></span>
-                        </a>
-                        <a class="btn btn-dark" role="button" href="">
-                            <span class="fas fa-stop"></span>
-                        </a>
-                        <a class="btn btn-danger" role="button" href="">
-                            <span class="fas fa-skull"></span>
-                        </a>
-                    </td>
+
                 </tr>
             {{end}}
         </table>

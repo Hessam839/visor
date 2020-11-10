@@ -32,6 +32,11 @@ func main() {
 	containers.Get("/list", handlers.HandlerContainerList)
 	containers.Get("/prune", handlers.HandlerContainerPrune)
 	containers.Get("/stat/:id", handlers.HandlerContainerStats)
+	containers.Get("/start/:id", handlers.HandlerContainerStart)
+	containers.Get("/stop/:id", handlers.HandlerContainerStop)
+	containers.Get("/pause/:id", handlers.HandlerContainerPause)
+	containers.Get("/unpause/:id", handlers.HandlerContainerUnPause)
+	containers.Get("/kill/:id", handlers.HandlerContainerKill)
 
 	images := app.Group("/images")
 	images.Get("/list", handlers.HandlerGetAllImages)

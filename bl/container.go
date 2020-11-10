@@ -5,12 +5,13 @@ import (
 	"fmt"
 	"github.com/dustin/go-humanize"
 	"log"
+	"regexp"
 	"time"
-	. "visor/utils"
+	"visor/utils"
 )
 
-func ContainerStatProcess(contID string) (*Stats, error) {
-	Stat, staterr := Visor.ContainerGetStat(contID)
+func ContainerStatProcess(contID string) (*utils.Stats, error) {
+	Stat, staterr := utils.Visor.ContainerGetStat(contID)
 	if staterr != nil {
 		log.Println(staterr)
 		return nil, staterr
@@ -22,7 +23,7 @@ func ContainerStatProcess(contID string) (*Stats, error) {
 		systemCPUtDelta := Stat.CPUStats.SystemCPUUsage - Stat.PrecpuStats.SystemCPUUsage
 		numberCPUs := Stat.CPUStats.OnlineCpus
 		cpuUsage := (float32(cpuDelta) / float32(systemCPUtDelta)) * float32(numberCPUs) * 100.0
-		Item := Stats{
+		Item := utils.Stats{
 			ID:   Stat.ID,
 			Name: Stat.Name,
 			CPU:  fmt.Sprintf("%f%", cpuUsage),
@@ -36,20 +37,27 @@ func ContainerStatProcess(contID string) (*Stats, error) {
 	return nil, errors.New("unknown error")
 }
 
-func ContainerListProcess() (*ViewData, error) {
-	conts, contsErr := Visor.ContainerListAll()
+func ContainerListProcess() (*utils.ViewData, error) {
+	conts, contsErr := utils.Visor.ContainerListAll()
+
 	if contsErr != nil {
 		return nil, contsErr
 	}
-	var items []Items
+	var items []utils.Items
 	for _, cont := range *conts {
-		items = append(items, Items{
+		paused, _ := regexp.MatchString("Paused", cont.Status)
+		exited, _ := regexp.MatchString("Exited", cont.Status)
+		items = append(items, utils.Items{
 			Name:    cont.Names[0],
+			Image:   cont.Image,
+			Command: cont.Command,
 			Created: humanize.Time(time.Unix(cont.Created, 0)),
-			Size:    humanize.Bytes(uint64(cont.SizeRootFs)),
 			Status:  cont.Status,
+			Ports:   utils.PortsToString(cont.Ports),
+			Paused:  paused,
+			Exited:  exited,
 			ID:      cont.ID[:10],
 		})
 	}
-	return &ViewData{Name: "test", Items: items}, nil
+	return &utils.ViewData{Name: "test", Items: items}, nil
 }

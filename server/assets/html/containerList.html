@@ -3,28 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <title>Visor(Containers Lists)</title>
-{{/*    <style>*/}}
-{{/*        table,td,td, th{*/}}
-{{/*            border: 1px solid black;*/}}
-{{/*        }*/}}
-{{/*    </style>*/}}
+
+    <link rel="preload" href="/static/css/bootstrap.min.css" as="style">
+    <link rel="preload" href="/static/css/all.min.css" as="style">
+    <link rel="preload" href="/static/webfonts/fa-solid-900.woff2" as="font">
+
     <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/all.min.css">
+    <link rel="script" href="/static/js/bootstrap.bundle.min.js">
+    <script type="text/javascript">
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
 </head>
 <body>
 <div style="align-content: center">
     <table title="Docker Container List" class="table">
         <tr>
             <th>Container Name</th>
+            <th>Image Name</th>
+            <th>Command</th>
             <th>Created at</th>
-            <th>Size</th>
             <th>Status</th>
+            <th>Ports</th>
+            <th>Operation</th>
         </tr>
         {{range .Items}}
             <tr>
-                <td><a href="/containers/stat/{{.ID}}">{{.Name}}</a></td>
+                <td class="align-content-center">{{.Name}}</td>
+                <td>{{.Image}}</td>
+                <td>{{.Command}}</td>
                 <td>{{.Created}}</td>
-                <td>{{.Size}}</td>
                 <td>{{.Status}}</td>
+                <td>{{.Ports}}</td>
+                <td>
+                    <a class="btn btn-primary {{if .Exited}} disabled {{end}}" role="button" href="/containers/stat/{{.ID}}"
+                       data-toggle="tooltip" data-placement="top" title="Container Stat">
+                        <span class="fas fa-info"></span>
+                    </a>
+                    <a class="btn btn-primary {{if not .Exited}} disabled {{end}}" role="button" href="/containers/start/{{.ID}}"
+                       data-toggle="tooltip" data-placement="top" title="Container Start">
+                        <span class="fas fa-play"></span>
+                    </a>
+                    <a class="btn btn-dark {{if or .Exited .Paused}} disabled {{end}}" role="button" href="/containers/stop/{{.ID}}"
+                       data-toggle="tooltip" data-placement="top" title="Container Stop">
+                        <span class="fas fa-stop"></span>
+                    </a>
+                    <a class="btn btn-warning {{if or .Paused .Exited}} disabled {{end}}" role="button" href="/containers/pause/{{.ID}}"
+                       data-toggle="tooltip" data-placement="top" title="Container Pause">
+                        <span class="fas fa-pause"></span>
+                    </a>
+                    <a class="btn btn-primary {{if not .Paused}} disabled {{end}}" role="button" href="/containers/unpause/{{.ID}}"
+                       data-toggle="tooltip" data-placement="top" title="Container UnPause">
+                        <span class="fas fa-play-circle"></span>
+                    </a>
+                     <a class="btn btn-danger" role="button" href="/containers/kill/{{.ID}}"
+                        data-toggle="tooltip" data-placement="top" title="Container Kill">
+                        <span class="fas fa-skull"></span>
+                    </a>
+                </td>
             </tr>
         {{end}}
     </table>

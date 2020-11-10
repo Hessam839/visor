@@ -36,14 +36,6 @@ func (v *Visor) ContainerStart(ContID string) error {
 	return nil
 }
 
-func (v *Visor) ContainerPause(ContID string) error {
-	err := v.Client.ContainerPause(v.Ctx, ContID)
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
 func (v *Visor) ContainerStop(ContID string) error {
 	err := v.Client.ContainerStop(v.Ctx, ContID, &v.TimeOut)
 	if err != nil {
@@ -52,6 +44,21 @@ func (v *Visor) ContainerStop(ContID string) error {
 	return nil
 }
 
+func (v *Visor) ContainerPause(ContID string) error {
+	err := v.Client.ContainerPause(v.Ctx, ContID)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (v *Visor) ContainerUnPause(ContID string) error {
+	err := v.Client.ContainerUnpause(v.Ctx, ContID)
+	if err != nil {
+		return err
+	}
+	return nil
+}
 func (v *Visor) ContainerKill(ContID string) error {
 	err := v.Client.ContainerKill(v.Ctx, ContID, "Kill")
 	if err != nil {

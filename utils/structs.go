@@ -1,10 +1,15 @@
 package utils
 
 type Items struct {
+	Image   string
 	Name    string
+	Command string
 	Created string
-	Size    string
 	Status  string
+	Ports   string
+	Paused  bool
+	Exited  bool
+	Size    string
 	ID      string
 }
 type ViewData struct {
